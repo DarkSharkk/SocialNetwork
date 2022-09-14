@@ -6,7 +6,7 @@ let state = {
             { id: 1, message: "How are you?", date: "14:05" },
             { id: 2, message: "It is my first post.", date: "14:02" }
         ],
-        newPostText: 'def'
+        newPostText: ''
     },
     dialogsPage: {
         dialogs: [
@@ -17,6 +17,7 @@ let state = {
             { id: 1, message: "Hola, Amigo!" },
             { id: 2, message: "Ayou, dude!" }
         ],
+        newMessageText: ''
     },
 };
 
@@ -36,6 +37,21 @@ export const addPost = () => {
 export const updateNewPostText = (newPostText) => {
      state.profilePage.newPostText = newPostText;
      rerenderEntireTree(state);
+}
+
+export const addMessage = () => {
+    let newMessage = {
+        id: state.dialogsPage.messages.length + 1,
+        message: state.dialogsPage.newMessageText
+    }
+    state.dialogsPage.messages.push(newMessage);
+    state.dialogsPage.newMessageText = '';
+    rerenderEntireTree(state);
+}
+
+export const updateNewMessageText = (newMessageText) => {
+    state.dialogsPage.newMessageText = newMessageText;
+    rerenderEntireTree(state);
 }
 
 export default state;

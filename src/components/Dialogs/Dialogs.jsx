@@ -6,20 +6,25 @@ import { useRef } from 'react';
 
 const Dialogs = (props) => {
     const newMessageElement = useRef(null);
+
     const addMessage = () => {
+        props.addMessage();
+    }
+
+    const onMessageText = () => {
         const text = newMessageElement.current.value;
-        alert(text);
+        props.updateNewMessageText();
     }
     
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
-                {props.state.dialogs.map((d) => <DialogItem name={d.name} id={d.id} />)}
+                {props.dialogsPage.dialogs.map((d) => <DialogItem name={d.name} id={d.id} />)}
             </div>
             <div className={classes.messages}>
-                {props.state.messages.map((m) => <Message message={m.message} />)}
+                {props.dialogsPage.messages.map((m) => <Message message={m.message} />)}
                 <div>
-                    <textarea ref={newMessageElement}></textarea>
+                    <textarea ref={newMessageElement} value={props.newMessageText} onChange={onMessageText} />
                     <button onClick={addMessage}>
                         Add message
                     </button>
