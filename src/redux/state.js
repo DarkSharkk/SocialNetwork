@@ -1,61 +1,66 @@
-let rerenderEntireTree = () => {}
-
-let state = {
-    profilePage: {
-        posts: [
-            { id: 1, message: "How are you?", date: "14:05" },
-            { id: 2, message: "It is my first post.", date: "14:02" }
-        ],
-        newPostText: ''
+let store = {
+    _state: {
+        profilePage: {
+            posts: [
+                { id: 1, message: "How are you?", date: "14:05" },
+                { id: 2, message: "It is my first post.", date: "14:02" }
+            ],
+            newPostText: ''
+        },
+        dialogsPage: {
+            dialogs: [
+                { id: 1, name: "Cody" },
+                { id: 2, name: "Jack" }
+            ],
+            messages: [
+                { id: 1, message: "Hola, Amigo!" },
+                { id: 2, message: "Ayou, dude!" }
+            ],
+            newMessageText: ''
+        },
     },
-    dialogsPage: {
-        dialogs: [
-            { id: 1, name: "Cody" },
-            { id: 2, name: "Jack" }
-        ],
-        messages: [
-            { id: 1, message: "Hola, Amigo!" },
-            { id: 2, message: "Ayou, dude!" }
-        ],
-        newMessageText: ''
+
+    getState() {
+        return this._state;
     },
-};
 
-window.state = state;
+    _callSubscriber() { },
 
-export const addPost = () => {
-    let newPost = {
-        id: state.profilePage.posts.length + 1,
-        message: state.profilePage.newPostText,
-        date: "13:57"
-    };
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
+    addPost() {
+        let newPost = {
+            id: this._state.profilePage.posts.length + 1,
+            message: this._state.profilePage.newPostText,
+            date: "13:57"
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state);
+    },
+
+    updateNewPostText(newPostText) {
+        this._state.profilePage.newPostText = newPostText;
+        this._callSubscriber(this._state);
+    },
+
+    addMessage() {
+        let newMessage = {
+            id: this._state.dialogsPage.messages.length + 1,
+            message: this._state.dialogsPage.newMessageText
+        }
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessageText = '';
+        this._callSubscriber(this._state);
+    },
+
+    updateNewMessageText(newMessageText) {
+        this._state.dialogsPage.newMessageText = newMessageText;
+        this._callSubscriber(this._state);
+    },
+
+    subscribe(observer) {
+        this._callSubscriber = observer; // наблюдатель
+    },
 }
 
-export const updateNewPostText = (newPostText) => {
-     state.profilePage.newPostText = newPostText;
-     rerenderEntireTree(state);
-}
-
-export const addMessage = () => {
-    let newMessage = {
-        id: state.dialogsPage.messages.length + 1,
-        message: state.dialogsPage.newMessageText
-    }
-    state.dialogsPage.messages.push(newMessage);
-    state.dialogsPage.newMessageText = '';
-    rerenderEntireTree(state);
-}
-
-export const updateNewMessageText = (newMessageText) => {
-    state.dialogsPage.newMessageText = newMessageText;
-    rerenderEntireTree(state);
-}
-
-export const subscribe = (observer) => {
-    rerenderEntireTree = observer; // наблюдатель
-}
-
-export default state;
+export default store;
+window.store = store; 
