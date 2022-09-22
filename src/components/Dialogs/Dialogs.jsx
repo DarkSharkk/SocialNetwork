@@ -1,19 +1,19 @@
 import classes from './Dialogs.module.css';
-import { NavLink } from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { useRef } from 'react';
+import { addMessageActionCreator, updateNewMessageActionCreator } from '../../redux/state';
 
 const Dialogs = (props) => {
     const newMessageElement = useRef(null);
 
     const addMessage = () => {
-        props.dispatch({type: 'ADD-MESSAGE'});
+        props.dispatch(addMessageActionCreator());
     }
 
     const onMessageText = () => {
         const text = newMessageElement.current.value;
-        props.dispatch({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessageText: text});
+        props.dispatch(updateNewMessageActionCreator(text));
     }
     
     return (
