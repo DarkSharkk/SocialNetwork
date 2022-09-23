@@ -56,12 +56,8 @@ let store = {
                 message: this._state.dialogsPage.newMessageText
             }
             this._state.dialogsPage.messages.push(newMessage);
-            debugger;
             this._state.dialogsPage.newMessageText = '';
-            debugger;
-            console.log(this._state.dialogsPage.newMessageText);
             this._callSubscriber(this._state);
-            console.log(this._state.dialogsPage.newMessageText);
  
         } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.newMessageText;
