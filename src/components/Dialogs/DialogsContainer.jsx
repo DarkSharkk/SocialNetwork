@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
         addMessage: () => {
             dispatch(addMessageActionCreator());
         },
-        onMessageText: (text) => {
+        updateNewMessageText: (text) => {
             dispatch(updateNewMessageActionCreator(text));
         }
     }
