@@ -3,14 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
 const initialState = {
-    users: [
-        {id: 1, photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Misha_Collins_%26_Jensen_Ackles_%2848478258422%29%28c%29.jpg', 
-            followed: false, fullName: 'Max F.', status: 'work', location: {city: 'Moscow', country: 'Russia'} },
-        {id: 2, photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Misha_Collins_%26_Jensen_Ackles_%2848478258422%29%28c%29.jpg', 
-            followed: true, fullName: 'Anna D.', status: 'study', location: {city: 'Minsk', country: 'Belarus'} },
-        {id: 3, photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Misha_Collins_%26_Jensen_Ackles_%2848478258422%29%28c%29.jpg', 
-            followed: false, fullName: 'Alex S.', status: 'vacation', location: {city: 'Kiev', country: 'Ukraine'} }
-    ]
+    users: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -46,7 +39,7 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
             }
 
         default: 
