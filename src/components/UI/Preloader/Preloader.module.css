@@ -1,4 +1,9 @@
 .preloader {
-    width: 320px;
-    height: 140px;
+    width: 340px;
+    height: 70px;
+}
+
+.preloaderContainer {
+    display: flex;
+    margin: 10px;
 }

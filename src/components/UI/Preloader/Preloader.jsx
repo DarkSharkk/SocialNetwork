@@ -4,6 +4,8 @@ import preloader from '../../../assets/images/preloader.gif';
 
 export const Preloader = (props) => {
     return (
-        <img src={ preloader } alt="preloader" className={styles.preloader} />
+        <div className={styles.preloaderContainer}>
+            <img src={ preloader } alt="preloader" className={styles.preloader} />
+        </div>
     )
 }
