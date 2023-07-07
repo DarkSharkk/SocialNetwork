@@ -12,6 +12,24 @@ const Users = (props) => {
         pages.push(i);
     }
 
+    const unfollow = (id) => {
+        usersAPI.unfollowUser(id)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    props.unfollow(id)
+                }
+            });
+    }
+
+    const follow = (id) => {
+        usersAPI.followUser(id)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    props.follow(id)
+                }
+            });
+    }
+
     return (
         <div>
             <div>
@@ -31,31 +49,13 @@ const Users = (props) => {
                         </div>
                         <div>
                             {u.followed ?
-                                <button 
-                                    onClick={() => { 
-                                            usersAPI
-                                                .unfollowUser(u.id)
-                                                .then((data) => {
-                                                    if (data.resultCode === 0) {
-                                                        props.unfollow(u.id)
-                                                    } 
-                                                });
-                                        }
-                                    }
-                                >Unfollow</button> 
+                                <button onClick={() => unfollow(u.id)}>
+                                    Unfollow
+                                </button>
                                 :
-                                <button 
-                                    onClick={() => { 
-                                            usersAPI
-                                                .followUser(u.id)
-                                                .then((data) => {
-                                                    if (data.resultCode === 0) {
-                                                        props.follow(u.id) 
-                                                    } 
-                                                });                                     
-                                        }
-                                    }
-                                >Follow</button>
+                                <button onClick={() => follow(u.id)}>
+                                    Follow
+                                </button>
                             }
                         </div>
                     </span>
