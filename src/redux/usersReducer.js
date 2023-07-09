@@ -12,7 +12,7 @@ const initialState = {
     pageSize: 40,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [2,3]
+    followingInProgress: []
 }
 
 const usersReducer = (state = initialState, action) => {
