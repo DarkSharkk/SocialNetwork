@@ -28,10 +28,8 @@ export const usersAPI = {
                 .delete(`/follow/${id}`)
                 .then(response => response.data)
         );
-    }
-};
-
-export const profileAPI = {
+    },
+    
     getProfile(id = 2) {
         return (
             requestInstance
@@ -39,7 +37,9 @@ export const profileAPI = {
                 .then(response => response.data)
         );
     },
+};
 
+export const profileAPI = {
     authMe() {
         return (
             requestInstance
