@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState = {
@@ -27,6 +29,19 @@ export const setAuthUserDataActionCreator = (userId, email, login) => ({
         email,
         login
     }
-})
+});
+
+export const getAuth = () => {
+    return (dispatch) => {
+        profileAPI
+            .authMe()
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    const {id, email, login} = response.data.data;
+                    dispatch(setAuthUserDataActionCreator(id, email, login)); 
+                }
+            });
+    }
+};
 
 export default authReducer;

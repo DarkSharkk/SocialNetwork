@@ -3,39 +3,23 @@ import { connect } from "react-redux";
 import {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleFollowingProgress
+    toggleFollowingProgress,
+    getUsers,
+    unfollowUser,
+    followUser
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import { Preloader } from "../UI/Preloader/Preloader";
-import { usersAPI } from "../../api/api";
 
 class UsersAPI extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-
-        usersAPI
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => { 
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount)
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChange = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);
-
-        usersAPI
-            .getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-            })
+        this.props.getUsers(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -51,7 +35,8 @@ class UsersAPI extends React.Component {
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                     followingInProgress={this.props.followingInProgress}
-                    toggleFollowingProgress={this.props.toggleFollowingProgress}
+                    unfollowUser={this.props.unfollowUser}
+                    followUser={this.props.followUser}
                 />
             </>
         )
@@ -97,11 +82,11 @@ const mapDispatchToProps = (dispatch) => {
 const UsersContainer = connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleFollowingProgress
+    toggleFollowingProgress, 
+    getUsers,
+    unfollowUser,
+    followUser
 })(UsersAPI);
 
 export default UsersContainer;
