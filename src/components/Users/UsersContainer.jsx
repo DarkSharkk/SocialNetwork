@@ -11,6 +11,7 @@ import {
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import { Preloader } from "../UI/Preloader/Preloader";
+import {compose} from "redux";
 
 class UsersAPI extends React.Component {
     componentDidMount() {
@@ -79,14 +80,16 @@ const mapDispatchToProps = (dispatch) => {
 }
 */
 
-const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    toggleFollowingProgress, 
-    getUsers,
-    unfollowUser,
-    followUser
-})(UsersAPI);
+const UsersContainer = compose(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsers,
+        unfollowUser,
+        followUser
+    })
+)(UsersAPI)
 
 export default UsersContainer;
